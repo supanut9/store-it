@@ -35,6 +35,7 @@ const OTPModal = ({
 
   const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
+    setIsLoading(true);
 
     try {
       const sessionId = await verifySecret({ accountId, password });
