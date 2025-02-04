@@ -20,6 +20,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { createAccount, signInUser } from '@/lib/actions/user.actions';
 import OTPModal from './OTPModal';
+import { useRouter } from 'next/navigation';
 
 type FormType = 'sign-in' | 'sign-up';
 
@@ -34,6 +35,7 @@ const authFormSchema = (formType: FormType) => {
 };
 
 const AuthForm = ({ type }: { type: FormType }) => {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [accountId, setAccountId] = useState(null);
@@ -61,6 +63,10 @@ const AuthForm = ({ type }: { type: FormType }) => {
             })
           : await signInUser({ email: values.email });
 
+      if (type === 'sign-in' && !user.accountId) {
+        alert('User not found, please Sign Up');
+        router.push('/sign-up');
+      }
       setAccountId(user.accountId);
     } catch (error) {
       setErrorMessage('Failed to create account. Please try again.');
