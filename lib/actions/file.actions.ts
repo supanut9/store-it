@@ -83,6 +83,8 @@ const createQueries = (
     queries.push(
       orderBy === 'asc' ? Query.orderAsc(sortBy) : Query.orderDesc(sortBy)
     );
+  } else {
+    queries.push(Query.orderDesc('$createdAt'));
   }
 
   return queries;
