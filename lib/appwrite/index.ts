@@ -1,14 +1,14 @@
 'use server';
 
 import { Account, Avatars, Client, Databases, Storage } from 'node-appwrite';
-import { appwirteConfig } from './config';
+import { appwriteConfig } from './config';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 export const createSessionClient = async () => {
   const client = new Client();
-  client.setEndpoint(appwirteConfig.endpointUrl);
-  client.setProject(appwirteConfig.projectId);
+  client.setEndpoint(appwriteConfig.endpointUrl);
+  client.setProject(appwriteConfig.projectId);
 
   const session = (await cookies()).get('appwrite-session');
 
@@ -30,9 +30,9 @@ export const createSessionClient = async () => {
 
 export const createAdminClient = async () => {
   const client = new Client();
-  client.setEndpoint(appwirteConfig.endpointUrl);
-  client.setProject(appwirteConfig.projectId);
-  client.setKey(appwirteConfig.secretKey);
+  client.setEndpoint(appwriteConfig.endpointUrl);
+  client.setProject(appwriteConfig.projectId);
+  client.setKey(appwriteConfig.secretKey);
 
   return {
     get account() {
