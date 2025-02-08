@@ -2,7 +2,7 @@
 
 import { ID, Query } from 'node-appwrite';
 import { createAdminClient, createSessionClient } from '../appwrite';
-import { appwirteConfig } from '../appwrite/config';
+import { appwriteConfig } from '../appwrite/config';
 import { parseStringify } from '../utils';
 import { cookies } from 'next/headers';
 import { avatarPlaceholderUrl } from '@/constants';
@@ -12,8 +12,8 @@ import { revalidatePath } from 'next/cache';
 const getUserByEmail = async (email: string) => {
   const { databases } = await createAdminClient();
   const result = await databases.listDocuments(
-    appwirteConfig.databaseId,
-    appwirteConfig.usersCollectionId,
+    appwriteConfig.databaseId,
+    appwriteConfig.usersCollectionId,
     [Query.equal('email', [email])]
   );
 
@@ -56,8 +56,8 @@ export const createAccount = async ({
   const { databases } = await createAdminClient();
 
   await databases.createDocument(
-    appwirteConfig.databaseId,
-    appwirteConfig.usersCollectionId,
+    appwriteConfig.databaseId,
+    appwriteConfig.usersCollectionId,
     ID.unique(),
     {
       fullName,
@@ -101,8 +101,8 @@ export const getCurrentUser = async () => {
   const result = await account.get();
 
   const user = await databases.listDocuments(
-    appwirteConfig.databaseId,
-    appwirteConfig.usersCollectionId,
+    appwriteConfig.databaseId,
+    appwriteConfig.usersCollectionId,
     [Query.equal('accountId', result.$id)]
   );
 
